@@ -11,10 +11,14 @@ Over the years, creatives (designers, videographers, web developers, etc) have b
 This Solution was developed using [React](https://reactjs.org) on the frontend and [Nodejs](https://nodejs.org)  at the Backend. Hence, it is very important that you know the basics of [React](https://reactjs.org) and [Nodejs](https://nodejs.org). 
 Tools used include a Github repository – this would require that you create an account on Github; a Text editor preferably VS Code and Git – this would require that you download and install on your local machine. 
 
-# Frontend Development
-•	Setting up the Frontend 
 
-•	Major Features Development
+## Development Setup
+1. clone repo `https://github.com/OnuohaOluebube/africana.git`
+
+### Frontend
+* cd africana
+* install dependencies `npm install` or `yarn install`
+* start dev server `npm start` or `yarn start`
 
 ## Live link
 
