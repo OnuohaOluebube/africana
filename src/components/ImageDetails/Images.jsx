@@ -10,34 +10,35 @@ const ImageDetails = () => {
 
   const imgContext = useContext(ImagesContext);
 
-  const selectedImage = imgContext.images?.find(
-    (img) => img.id === parseInt(ImageId)
-  );
+  const selectedImage = imgContext.images?.find((img) => img._id === ImageId);
+
   const sameCategory = imgContext.images?.filter(
     (img) =>
-      img.category.id === selectedImage?.category.id &&
-      img.id !== selectedImage?.id
+      img.category._id === selectedImage?.category._id &&
+      img._id !== selectedImage?._id
   );
+
   return (
     <div className="imagedetails-page">
       <div className="image-details" id="imageDetails">
         <div className="image-details-left">
           <h2> {selectedImage?.name}</h2>
           <p>{selectedImage?.description}</p>
-          <a href={selectedImage?.image} download>
+          <a href={selectedImage?.s3Url} download>
             <Button className="image-details-button" name="Download" />
           </a>
           <div className="image-details-left-bottom">
             <p>Tags</p>
             <div className="image-details-left-bottomboxes">
               <div className="bottomboxes-top">
-                {selectedImage.tags && <p>{selectedImage?.tags}</p>}
+                {selectedImage?.tags &&
+                  selectedImage?.tags.split(",").map((t) => <p>{t}</p>)}
               </div>
             </div>
           </div>
         </div>
         <div className="image-details-right">
-          <img src={selectedImage?.image} alt={selectedImage?.name} />
+          <img src={selectedImage?.s3Url} alt={selectedImage?.name} />
         </div>
       </div>
 

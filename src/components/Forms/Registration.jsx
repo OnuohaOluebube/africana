@@ -3,19 +3,26 @@ import ImagesContext from "../Common/stateProvider";
 import "./Forms.css";
 import { Link } from "react-router-dom";
 import endPoints from "../services/EndPoints";
+import Button from "../Common/button";
 
 const RegForm = () => {
   const context = useContext(ImagesContext);
   const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data);
-
-    const res = await endPoints.signup(data);
-    console.log(res);
-    localStorage.setItem("africanaToken", res.token);
-    context.setLoggedIn(true);
+    setLoading(true);
+    try {
+      console.log(data);
+      const res = await endPoints.signup(data);
+      console.log(res);
+      setEmailSent(true);
+    } catch (e) {
+      console.log(e);
+    }
+    setLoading(false);
   };
 
   const handleChange = ({ target: input }) => {
@@ -30,81 +37,110 @@ const RegForm = () => {
       <div className="formright-col">
         <h5 className="h5">Africana</h5>
         <br />
-        <form className="form-reg">
-          <h2 className="h2">We are happy to meet you!</h2>
-          <br />
-
-          <label className="first" for="fname">
-            Full Name
-          </label>
-          <div className="relative">
-            <input
-              className="input"
-              type="text"
-              name="fname"
-              id="fname"
-              placeholder="Full Name"
-              onChange={handleChange}
-            />
+        {emailSent && (
+          <div>
+            <br />
+            <br />
+            <h2 className="h2">We have sent you an email!</h2>
+            <h3 className="h3">Please confirm your account</h3>
           </div>
-          <br />
+        )}
+        {!emailSent && (
+          <form className="form-reg">
+            <h2 className="h2">We are happy to meet you!</h2>
+            <br />
 
-          <label className="label" for="username">
-            Username
-          </label>
-          <div className="relative">
-            <input
-              className="input"
-              type="text"
-              name="username"
-              id="user"
-              placeholder="Username"
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="box">
-            <label className="label" for="email">
-              Email Address
+            <label className="first" for="firstname">
+              First name
             </label>
             <div className="relative">
               <input
                 className="input"
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email Address"
+                type="text"
+                name="firstname"
+                id="firstname"
+                placeholder="first name"
                 onChange={handleChange}
               />
             </div>
-          </div>
+            <br />
 
-          <div className="mt-24">
-            <label className="label" for="password">
-              Password
+            <label className="label" for="lastname">
+              Last Name
             </label>
             <div className="relative">
               <input
                 className="input"
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
+                type="text"
+                name="lastname"
+                id="lastname"
+                placeholder="Last name"
                 onChange={handleChange}
               />
             </div>
-          </div>
-          <button className="button sec mt-54" onClick={handleSubmit}>
-            Sign Up
-          </button>
-          <br />
-          <p className="text">
-            Already have an account?{" "}
-            <Link to="/Login" className="underline">
-              Login
-            </Link>
-          </p>
-        </form>
+
+            <div className="box">
+              <label className="label" for="email">
+                Email Address
+              </label>
+              <div className="relative">
+                <input
+                  className="input"
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Email Address"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="mt-24">
+              <label className="label" for="password">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  className="input"
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className="mt-24">
+              <label className="label" for="confirmpassword">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <input
+                  className="input"
+                  type="password"
+                  name="confirmpassword"
+                  id="confirmpassword"
+                  placeholder="Confirm Password"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <br />
+            <Button
+              loading={loading}
+              className="button upload-btn"
+              onClick={handleSubmit}
+              name={"Sign Up  "}
+            ></Button>
+            <br />
+            <p className="text">
+              Already have an account?{" "}
+              <Link to="/Login" className="underline">
+                Login
+              </Link>
+            </p>
+          </form>
+        )}
       </div>
     </div>
   );

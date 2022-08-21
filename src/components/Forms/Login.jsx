@@ -1,16 +1,18 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import ImagesContext from "../Common/stateProvider";
 import "./Forms.css";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import endPoints from "../services/EndPoints";
 import Joi from "joi-browser";
+import Button from "../Common/button";
 
 const LoginForm = () => {
   let history = useHistory();
   const context = useContext(ImagesContext);
   const [data, setData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const schema = {
     email: Joi.string()
@@ -42,18 +44,24 @@ const LoginForm = () => {
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const error = validate();
     console.log(error);
     if (error) return;
-
-    const res = await endPoints.login(data);
-    console.log(res);
-    localStorage.setItem("africanaToken", res.token);
-    localStorage.setItem("africanaUsername", res.user_name);
-    context.setLoggedIn(true);
-    context.setUsername(res.user_name);
-    history.push("/");
+    try {
+      const res = await endPoints.login(data);
+      console.log(res);
+      localStorage.setItem("africanaToken", res.token);
+      localStorage.setItem("africanaUsername", res.firstname);
+      context.setLoggedIn(true);
+      context.setUsername(res.firstname);
+      history.push("/");
+    } catch (e) {
+      console.log(e.response);
+      alert(e?.response?.data?.error || "something went wrong");
+    }
+    setLoading(false);
   };
 
   const handleChange = ({ target: input }) => {
@@ -118,10 +126,13 @@ const LoginForm = () => {
               <p className="errormessage">{errors.password}</p>
             )}
           </div>
+          <Button
+            onClick={handleSubmit}
+            loading={loading}
+            className="button  mt-52 upload-btn"
+            name={"Login"}
+          />
 
-          <button onClick={handleSubmit} className="button primary mt-52">
-            Login
-          </button>
           <br />
           <p className="text">
             Don't have an account yet?{" "}

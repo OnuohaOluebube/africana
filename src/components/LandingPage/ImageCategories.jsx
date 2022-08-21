@@ -1,4 +1,4 @@
-import React, { Component, useContext } from "react";
+import React, { Component, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ImagesContext from "../Common/stateProvider";
 import ImageCard from "../Common/ImageCard";
@@ -6,20 +6,26 @@ import Button from "../Common/button";
 
 const ImageCategories = () => {
   const imgContext = useContext(ImagesContext);
-  const categorizedImage = imgContext.selectedImageCategory
-    ? imgContext.images
-        .slice(0, 3)
-        .filter(
-          (image) => image.category.id === imgContext.selectedImageCategory
-        )
-    : imgContext.images.slice(0, 3);
+  const [categorizedImages, setCategorizedImages] = useState([]);
 
-  const categorizedImgUI = categorizedImage.map((image) => {
+  useEffect(() => {
+    console.log({ "categorized images": imgContext.images });
+    const categorizedImages = imgContext.selectedImageCategory
+      ? imgContext.images
+          .filter(
+            (image) => image.category._id === imgContext.selectedImageCategory
+          )
+          .slice(0, 3)
+      : imgContext.images.slice(0, 3);
+    setCategorizedImages([...categorizedImages]);
+  }, [imgContext.images, imgContext.selectedImageCategory]);
+
+  const categorizedImgUI = categorizedImages.map((image) => {
     return (
       <ImageCard
         handleImageSelect={imgContext.handleImageSelect}
-        extraClassName={`imageCardCont${image.id}`}
-        key={image.id}
+        extraClassName={`imageCardCont${image._id}`}
+        key={image._id}
         image={image}
         handleShowModal={imgContext.handleShowModal}
       />
@@ -47,10 +53,10 @@ const ImageCategories = () => {
             <button
               key={category.id}
               onClick={() => {
-                imgContext.handleSelectedImageCategory(category.id);
+                imgContext.handleSelectedImageCategory(category._id);
               }}
               className={` ${
-                imgContext.selectedImageCategory === category.id
+                imgContext.selectedImageCategory === category._id
                   ? "category-btn active"
                   : "category-btn"
               }`}

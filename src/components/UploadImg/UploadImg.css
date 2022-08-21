@@ -103,6 +103,12 @@
   cursor: pointer;
 }
 
+.upload-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media only screen and (max-width: 768px) {
   .upload-left {
     padding-right: 2rem;

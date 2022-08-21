@@ -57,7 +57,7 @@
   font-size: 30px;
 }
 
-.button.primary:hover {
+button:hover {
   background-color: coral;
 }
 

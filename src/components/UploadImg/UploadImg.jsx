@@ -1,17 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./UploadImg.css";
 import { Link } from "react-router-dom";
 import Button from "../Common/button";
 import { AiOutlineClose } from "react-icons/ai";
-import LoginForm from "../Forms/Login";
+import { useContext } from "react";
+import ImagesContext from "../Common/stateProvider";
+import endPoints from "../services/EndPoints";
+import { useHistory } from "react-router-dom";
 
 const UploadImg = () => {
-  //   const [eachTag, setEachTag] = useState("");
+  let history = useHistory();
   const fileInput = useRef(null);
   const [tags, setTags] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [imgData, setImgData] = useState({});
   const [isSelected, setIsSelected] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const imgContext = useContext(ImagesContext);
   const handleSetTags = (e) => {
     const newTags = [...tags];
     if (e.code === "Enter") {
@@ -39,10 +44,36 @@ const UploadImg = () => {
     setIsSelected(true);
   };
 
+  const uploadImageToS3 = async () => {
+    const url = await endPoints.getSignedS3Url();
+    await endPoints.uploadToS3(selectedFile, url);
+    const imgUrl = url.split("?")[0];
+    console.log(url);
+    return imgUrl;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      setLoading(true);
+      const s3Url = await uploadImageToS3();
+      const data = { ...imgData, tags: tags.join(","), s3Url };
+      const res = await endPoints.createImage(data);
+      imgContext.setImages([res, ...imgContext.images]);
+      history.push(`/?ImageId=${res?._id}`);
+      imgContext.setShowModal(true);
+      console.log(data, res);
+    } catch (e) {
+      console.log(e);
+    }
+    setLoading(false);
+  };
+
   const s = selectedFile?.type;
   let isImageFile = s?.split("/")[0] === "image";
 
   console.log(selectedFile?.type);
+
   return (
     <div className="upload">
       <div className="upload-left">
@@ -61,9 +92,33 @@ const UploadImg = () => {
         )}
         <div className="upload-description">
           <h6>Picture Title</h6>
-          <input type="text" placeholder=" Put in title for your picture" />
+          <input
+            type="text"
+            onChange={(e) => setImgData({ ...imgData, name: e.target.value })}
+            placeholder=" Put in title for your picture"
+            value={imgData.name}
+          />
           <h6>Description</h6>
-          <input type="text" placeholder=" Briefly describe your picture" />
+          <input
+            onChange={(e) =>
+              setImgData({ ...imgData, description: e.target.value })
+            }
+            type="text"
+            value={imgData.description}
+            placeholder=" Briefly describe your picture"
+          />
+          <h6>Select Category</h6>
+          <select
+            name="category"
+            id=""
+            onChange={(e) =>
+              setImgData({ ...imgData, categoryId: e.target.value })
+            }
+          >
+            {imgContext?.imagesCategories?.map((cat) => (
+              <option value={cat._id}>{cat.name}</option>
+            ))}
+          </select>
         </div>
         <div>
           <h6>Tags</h6>
@@ -85,7 +140,13 @@ const UploadImg = () => {
           placeholder="Add tags"
           onKeyPress={handleSetTags}
         />
-        <Button className="upload-btn" name="Upload" />
+
+        <Button
+          onClick={handleSubmit}
+          loading={loading}
+          className="upload-btn"
+          name="Upload"
+        />
       </div>
 
       <div className="upload-right">

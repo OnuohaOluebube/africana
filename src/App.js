@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Index from "./components/LandingPage/Index";
 import ImagesContext from "./components/Common/stateProvider";
-import { getCategories } from "./components/utils/getCategories";
+// import { getCategories } from "./components/utils/getCategories";
 import { getImages } from "./components/utils/getImages";
 import Feeds from "./components/Feeds/Feeds";
 import ImageDetails from "./components/ImageDetails/Images";
@@ -42,12 +42,19 @@ function App() {
     setUsername(username);
   }, []);
 
-  useEffect(() => {
-    setImagesCategories([...getCategories()]);
+  const getCategories = async () => {
+    const cats = await endPoints.getCategories();
+    console.log(cats);
+    return cats;
+  };
+
+  useEffect(async () => {
+    const cats = await getCategories();
+    setImagesCategories([...cats]);
   }, []);
 
   const fetchImages = async () => {
-    const images = getImages();
+    const images = await endPoints.getImages();
     setImages(images);
   };
 
@@ -79,11 +86,11 @@ function App() {
           value={{
             imagesCategories,
             images,
+            setImages,
             selectedImageCategory,
             handleSelectedImageCategory,
             handleImageSelect,
             showModal,
-
             setShowModal,
             searchQuery,
             setSearchQuery,
@@ -98,7 +105,6 @@ function App() {
           <ScrollToTop />
           <ModalPopup showModal={showModal} />
           <ToastContainer />
-
           <Switch>
             <Route
               path="/Images/:id"

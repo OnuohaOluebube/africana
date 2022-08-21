@@ -11,7 +11,7 @@ const Feeds = () => {
 
   const categorizedImgs = imgContext.selectedImageCategory
     ? imgContext.images.filter(
-        (i) => i.category.id === imgContext.selectedImageCategory
+        (i) => i.category._id === imgContext.selectedImageCategory
       )
     : imgContext.images;
 
@@ -22,7 +22,7 @@ const Feeds = () => {
   console.log(categorizedQueriedImgs);
 
   const categorizedImgUI = categorizedQueriedImgs.map((image) => (
-    <ImageCard key={image.id} image={image} extraClassName="feeds-card" />
+    <ImageCard key={image._id} image={image} extraClassName="feeds-card" />
   ));
   const breakpointColumnsObj = {
     default: 3,
@@ -41,12 +41,12 @@ const Feeds = () => {
           <div className="categories">
             {imgContext.imagesCategories?.map((category) => (
               <button
-                key={category.id}
+                key={category._id}
                 onClick={() => {
-                  imgContext.handleSelectedImageCategory(category.id);
+                  imgContext.handleSelectedImageCategory(category._id);
                 }}
                 className={` ${
-                  imgContext.selectedImageCategory === category.id
+                  imgContext.selectedImageCategory === category._id
                     ? "category-btn active"
                     : "category-btn"
                 }`}

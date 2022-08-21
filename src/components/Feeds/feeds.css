@@ -1,3 +1,12 @@
 .my-masonry-grid_column .feeds-card {
   margin-bottom: 30px;
 }
+
+.img-card-name {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.img-card-user {
+  font-size: 12px;
+}

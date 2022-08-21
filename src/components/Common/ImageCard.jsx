@@ -5,15 +5,29 @@ import ImagesContext from "./stateProvider";
 
 const ImageCard = ({ image, extraClassName }) => {
   let history = useHistory();
+  function titleCase(str) {
+    return str
+      .toLowerCase()
+      .split(" ")
+      .map(function (word) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      .join(" ");
+  }
+  const firstname = image?.user?.firstname || "";
+  const lastname = image?.user?.lastname || "";
+  const fulname = titleCase(firstname + " " + lastname);
+
   const ImgContext = useContext(ImagesContext);
+
   return (
     <div className={"imagecardcontainer " + extraClassName}>
       <div className="imagecard">
         <img
-          src={image.image}
+          src={image.s3Url}
           alt={image.name}
           onClick={() => {
-            history.push(`?ImageId=${image?.id}`);
+            history.push(`?ImageId=${image?._id}`);
             ImgContext.setShowModal(true);
             const imageDetail = document.getElementById("imageDetails");
             imageDetail &&
@@ -25,10 +39,13 @@ const ImageCard = ({ image, extraClassName }) => {
         />
         <div className="imagecard-bottom">
           <div className="imagecard-bottom-left">
-            <p className="rounded-profileImg ">{image.source[0]}</p>
-            <p>{image.source}</p>
+            <p className="rounded-profileImg ">{fulname[0].toUpperCase()}</p>
+            <p>
+              <p className="img-card-name">{image.name}</p>
+              <p className="img-card-user">{fulname}</p>
+            </p>
           </div>
-          <a href={image.image} download>
+          <a href={image.s3Url} download>
             <BsFillArrowDownSquareFill className="download-icon" />
           </a>
         </div>
