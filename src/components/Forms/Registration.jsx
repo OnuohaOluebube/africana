@@ -35,7 +35,9 @@ const RegForm = () => {
         <img src="images/Rectangle 1.png" alt="Registration-image" />
       </div>
       <div className="formright-col">
-        <h5 className="h5">Africana</h5>
+        <Link to="/">
+          <h5 className="h5">Africana</h5>
+        </Link>
         <br />
         {emailSent && (
           <div>

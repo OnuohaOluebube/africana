@@ -85,7 +85,9 @@ const LoginForm = () => {
         <img src="images/Rectangle 0.png" alt="Login-image" />
       </div>
       <div className="formright-col">
-        <h5 className="h5">Africana</h5>
+        <Link to="/">
+          <h5 className="h5">Africana</h5>
+        </Link>
 
         <form className="form">
           <br />

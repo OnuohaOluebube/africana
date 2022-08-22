@@ -75,6 +75,7 @@ const NavBar = ({}) => {
               style={{
                 fontSize: "15px",
                 margin: "10px",
+                color: "red",
               }}
             >
               {" "}
