@@ -1,48 +1,33 @@
 .form-container {
   display: flex;
-  position: relative;
+
   width: 100%;
-  height: fit-content;
-  border: none;
-  margin: auto;
+  height: vh;
 }
-/* login registration form*/
 
 .formleft-col {
   width: 50%;
   height: 100%;
 }
 .formleft-col img {
+  position: fixed;
+  width: 50%;
   object-fit: cover;
-  width: 100%;
-  height: 100%;
+  bottom: -7s0px;
 }
+
 .formright-col {
   width: 50%;
-  width: 50%;
   padding: 0 2rem;
+  height: 100%;
 }
-.form {
+
+.underline {
+  text-decoration: underline;
+}
+form {
+  height: 100%;
   width: 100%;
-}
-
-.underline {
-  text-decoration: underline;
-}
-.right-0 {
-  right: 10%;
-}
-
-.mt-52 {
-  margin-top: 40px;
-}
-
-.text {
-  color: #000;
-}
-
-.underline {
-  text-decoration: underline;
 }
 
 .button.primary {
@@ -54,365 +39,41 @@
   border-radius: 10px;
   color: #fff;
 
-  font-size: 30px;
+  font-size: 30 px;
 }
 
 button:hover {
   background-color: coral;
+  border-radius: 5px;
+}
+.input-containers {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 15px;
+
+  border: none;
+  outline: none;
+
+  /* right: 12px; */
 }
 
-.h5 {
-  position: relative;
-  padding: 0 10px;
-  padding-top: 20px;
-  font-weight: bold;
-}
-
-.mt-24 {
-  margin-top: 40px;
-  padding: 1px;
-}
 .label {
-  display: block;
   font-weight: bold;
-  padding: 1rem 0;
-  /* font-size: 40px; */
-}
-
-.absolute {
-  position: absolute;
+  padding: 0.5rem 0;
+  font-size: 1.3rem;
+  width: 80%;
 }
 
 .input {
   border: none;
   border-bottom: 1px solid #000;
 
-  padding: 0 10px;
-  padding-top: 3px;
-  margin-top: 1px;
-  font-size: 1.5rem;
+  padding: 0.2rem 0.5rem;
 
-  width: 80%;
-}
-
-.box {
-  position: relative;
-  display: block;
-
-  margin: 15px;
-
-  border: none;
-  outline: none;
-  /* font-size: 40px; */
-  right: 12px;
-}
-
-#submit {
-  padding: 12px 30px;
-  width: 40%;
-  margin-top: 40px;
-  background-color: black;
-  color: white;
-  font-weight: bold;
-  border: none;
-  outline: none;
-  border-radius: 20px;
-}
-
-#submit:hover {
-  cursor: pointer;
-  background-color: turquoise;
-}
-
-.form a {
-  text-decoration: none;
-  color: black;
-  margin-top: 20px;
-}
-
-.form a:hover {
-  color: coral;
-}
-
-#btn {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 14px 30px;
-  padding-top: 10px;
-  position: absolute;
-  width: 200px;
-  height: 45px;
-  left: 1030px;
-  top: 49px;
-  background: white;
-  border-radius: 10px;
-  font-size: 20px;
-}
-
-#btn:hover {
-  background-color: coral;
-}
-
-/*profile*/
-.proheader {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 20px;
-  border-radius: 5px 5px 0 0;
-}
-.prophoto {
-  height: 5px;
-  width: 100px;
-  border-radius: 60px;
-  padding-bottom: 80px;
-  background-color: coral;
-}
-.prophoto img {
-  position: relative;
-  display: block;
-  max-width: 100px;
-  height: 10px;
-  border-radius: 50%;
-}
-.probody {
-  padding: 0 15px 15px;
-}
-.proname {
-  position: relative;
-  font-size: 25px;
-  font-weight: 700;
-  padding-top: 50px;
-  float: left;
-}
-.probutton {
-  margin: 50px 0 0 250px;
-}
-
-.containerpro {
-  display: flex;
-  width: 100%;
-  /* background-image: url(img/pro.png); */
-  height: 250px;
-  position: relative;
-  justify-content: space-between;
-  text-align: center;
-  padding: 70px 30px;
-}
-
-.searchbox {
-  border: none;
-  outline: none;
-  height: 25%;
-  padding: 4px 5px;
-  font-size: 20px;
-  width: 50px;
-}
-
-.search {
-  display: flex;
-  margin: auto 0;
-  height: 15px;
-}
-
-.searchbox span {
-  color: blue;
-  font-size: 20px;
-  background: #e3e3e3;
-  height: 100%;
-  padding: 8px;
-  position: relative;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.searchbox span::after {
-  height: 100%;
-  width: 100%;
-  content: "";
-  background: tomato;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  transition: 0.3s;
-}
-
-.searchbox:hover::after {
-  width: 100%;
-}
-
-@media screen and (max-width: 1250px) {
-  nav {
-    display: block;
-    padding: 0;
-  }
-}
-
-.searchbox {
-  position: absolute;
-  width: 200px;
-  height: 56px;
-  left: 550px;
-  top: 48px;
-  background: #e3e3e3;
-  border-radius: 20px;
-}
-
-.af {
-  position: absolute;
-  width: 98px;
-  height: 31px;
-  left: 62px;
-  top: 60px;
-  font-family: DM Sans;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 31px;
-  color: #000000;
-}
-@media screen and (max-width: 528px) {
-  .formleft-col {
-    display: none;
-  }
-  .input {
-    width: 90%;
-  }
-
-  .formright-col {
-    width: 100%;
-    padding: 0 1rem;
-  }
-}
-
-.font {
-  font-family: DM Sans;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 26px;
-  color: black;
-}
-
-.v {
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 0px 10px;
-}
-
-#btn {
-  background-color: black;
-}
-
-#sea {
-  width: auto;
-  border: none;
-  border-inline: none;
-}
-
-initial {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  left: 1314px;
-  top: 36px;
-  background: #ff7a7a;
-}
-
-/*reg form*/
-
-.formreg {
-  display: block;
-  align-items: baseline;
-  top: 393px;
-  padding-bottom: 200px;
-  width: 600px;
-  background-color: white;
-}
-
-.signup {
-  position: relative;
-  width: 1440px;
-  height: 1024px;
-  background: #ffffff;
-}
-
-.img {
-  width: 701px;
-  height: 1024px;
-  left: 701px;
-  top: 0px;
-}
-
-.first {
-  display: block;
-  font-weight: bold;
-}
-
-.last {
-  position: relative;
-  display: flex;
-  font-weight: bold;
-
-  left: 300px;
-  bottom: 87px;
-}
-
-#fname {
-  position: relative;
-  top: 37px;
-  line-height: 40px;
-  border-radius: none;
-  padding: 0 3px;
-
-  width: 250px;
-}
-
-/* #lname {
-  position: relative;
-  left: 300px;
-  top: -50px;
-  line-height: 40px;
-  border-radius: none;
-} */
-
-.button.sec {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0.5rem 2rem;
-  background: #000000;
-  border-radius: 10px;
-  color: #fff;
   font-size: 1.2rem;
 
-  font-weight: bold;
-}
-
-.button.sec:hover {
-  background-color: coral;
-}
-
-.mt-54 {
-  margin-top: 20px;
-}
-
-#user {
-  padding: 2px 5px;
-}
-
-.containereg {
-  display: flex;
-  position: relative;
-  width: 1640px;
-  height: 1024px;
-  border: none;
-  margin: auto;
-  margin-top: 120px;
-  box-shadow: 15px 15px 20px black;
+  width: 80%;
 }
 
 .errormessage {
@@ -424,9 +85,19 @@ initial {
   bottom: 0.4rem;
   padding: 0.3rem;
 }
-@media screen and (max-width: 528px) {
-  .errormessage {
-    width: 90%;
-    font-size: 1rem;
+@media screen and (max-width: 728px) {
+  .form-container {
+    padding: 1rem;
+  }
+  .formleft-col {
+    display: none;
+  }
+  .formright-col {
+    width: 100%;
+
+    padding: 0 1rem;
+  }
+  .input-containers {
+    width: 100%;
   }
 }
