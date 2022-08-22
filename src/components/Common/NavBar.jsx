@@ -68,10 +68,18 @@ const NavBar = ({}) => {
                 <Button name="Upload" className="nav-button" />
               </Link>
 
-              <p onClick={handleSignOut} className="nav-rounded-profileImg">
-                {imgContext.username[0]}
-              </p>
+              <p className="nav-rounded-profileImg">{imgContext.username[0]}</p>
             </div>
+            <p
+              onClick={handleSignOut}
+              style={{
+                fontSize: "15px",
+                margin: "10px",
+              }}
+            >
+              {" "}
+              Sign Out
+            </p>
           </div>
         )}
 
