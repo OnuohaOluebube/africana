@@ -48,12 +48,12 @@ const RegForm = () => {
         {!emailSent && (
           <form className="form-reg">
             <h2 className="h2">We are happy to meet you!</h2>
-            <br />
 
-            <label className="first" for="firstname">
-              First name
-            </label>
-            <div className="relative">
+            <div className="input-containers">
+              <label className="first" for="firstname">
+                First name
+              </label>
+
               <input
                 className="input"
                 type="text"
@@ -63,12 +63,12 @@ const RegForm = () => {
                 onChange={handleChange}
               />
             </div>
-            <br />
 
-            <label className="label" for="lastname">
-              Last Name
-            </label>
-            <div className="relative">
+            <div className="input-containers">
+              <label className="label" for="lastname">
+                Last Name
+              </label>
+
               <input
                 className="input"
                 type="text"
@@ -79,51 +79,48 @@ const RegForm = () => {
               />
             </div>
 
-            <div className="box">
+            <div className="input-containers">
               <label className="label" for="email">
                 Email Address
               </label>
-              <div className="relative">
-                <input
-                  className="input"
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Email Address"
-                  onChange={handleChange}
-                />
-              </div>
+
+              <input
+                className="input"
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Email Address"
+                onChange={handleChange}
+              />
             </div>
 
-            <div className="mt-24">
+            <div className="input-containers">
               <label className="label" for="password">
                 Password
               </label>
-              <div className="relative">
-                <input
-                  className="input"
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Password"
-                  onChange={handleChange}
-                />
-              </div>
+
+              <input
+                className="input"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                onChange={handleChange}
+              />
             </div>
-            <div className="mt-24">
+            <div className="input-containers">
               <label className="label" for="confirmpassword">
                 Confirm Password
               </label>
-              <div className="relative">
-                <input
-                  className="input"
-                  type="password"
-                  name="confirmpassword"
-                  id="confirmpassword"
-                  placeholder="Confirm Password"
-                  onChange={handleChange}
-                />
-              </div>
+
+              <input
+                className="input"
+                type="password"
+                name="confirmpassword"
+                id="confirmpassword"
+                placeholder="Confirm Password"
+                onChange={handleChange}
+              />
             </div>
             <br />
             <Button

@@ -86,12 +86,13 @@ const LoginForm = () => {
       </div>
       <div className="formright-col">
         <h5 className="h5">Africana</h5>
-        <br />
+
         <form className="form">
+          <br />
           <h2 className="h2">Welcome back.</h2>
           <br />
 
-          <div className="box">
+          <div className="input-containers">
             <label className="label" htmlFor="email">
               Email Address
             </label>
@@ -108,7 +109,7 @@ const LoginForm = () => {
             {/* </div> */}
             {errors.email && <p className="errormessage">{errors.email}</p>}
           </div>
-          <div className="mt-24">
+          <div className="input-containers">
             <label className="label" htmlFor="password">
               Password
             </label>
@@ -137,7 +138,6 @@ const LoginForm = () => {
           <p className="text">
             Don't have an account yet?{" "}
             <Link to="/Registration" className="underline">
-              {" "}
               Sign Up
             </Link>
           </p>

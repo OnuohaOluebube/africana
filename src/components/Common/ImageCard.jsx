@@ -23,20 +23,22 @@ const ImageCard = ({ image, extraClassName }) => {
   return (
     <div className={"imagecardcontainer " + extraClassName}>
       <div className="imagecard">
-        <img
-          src={image.s3Url}
-          alt={image.name}
-          onClick={() => {
-            history.push(`?ImageId=${image?._id}`);
-            ImgContext.setShowModal(true);
-            const imageDetail = document.getElementById("imageDetails");
-            imageDetail &&
-              imageDetail.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
-          }}
-        />
+        <div className="imagecard-img">
+          <img
+            src={image.s3Url}
+            alt={image.name}
+            onClick={() => {
+              history.push(`?ImageId=${image?._id}`);
+              ImgContext.setShowModal(true);
+              const imageDetail = document.getElementById("imageDetails");
+              imageDetail &&
+                imageDetail.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+            }}
+          />
+        </div>
         <div className="imagecard-bottom">
           <div className="imagecard-bottom-left">
             <p className="rounded-profileImg ">{fulname[0].toUpperCase()}</p>

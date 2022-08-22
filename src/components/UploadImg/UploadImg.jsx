@@ -115,6 +115,9 @@ const UploadImg = () => {
               setImgData({ ...imgData, categoryId: e.target.value })
             }
           >
+            <option value="" selected="selected" hidden="hidden">
+              Categories
+            </option>
             {imgContext?.imagesCategories?.map((cat) => (
               <option value={cat._id}>{cat.name}</option>
             ))}

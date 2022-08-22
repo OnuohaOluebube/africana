@@ -62,12 +62,12 @@ section {
 }
 
 .container {
-  margin: 0 auto;
+  margin: 0 2rem;
 }
 
 @media only screen and (min-width: 996px) {
   .container {
-    padding: 0 3rem;
+    padding: 0 2rem;
   }
 }
 @media only screen and (max-width: 996px) {
@@ -264,6 +264,9 @@ header {
   }
 }
 @media only screen and (max-width: 528px) {
+  header {
+    height: 100%;
+  }
   .navigation {
     padding: 0 1rem;
   }
@@ -323,6 +326,7 @@ header {
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding-bottom: 0;
 }
 
@@ -351,27 +355,49 @@ header {
   position: relative;
   width: 100%;
   margin: 2rem 0;
-  display: grid;
-  grid-template-areas:
-    "imageLeft imageCenter imageRight"
-    "imageLeft btn imageRight";
-
+  display: flex;
   gap: 1.5rem;
+  /* grid-template-columns: auto auto auto;
+  display: grid; */
+  /* grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem; */
 }
+
+.categoryimagescontainer .imagecardcontainer {
+  width: 33%;
+  height: 500px;
+}
+
 .imagecardcontainer {
   background: var(--secondary);
   color: var(--primary);
   font-size: 1rem;
-  height: fit-content;
+  /* height: 500px; */
+  /* width: 33%; */
 }
 .imagecard {
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-.imagecard img {
+.imagecard-img {
   cursor: pointer;
+  height: 80%;
+}
+.imagecard-img img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.imagecard-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
 }
 
-.imageCardCont1 {
+/* .imageCardCont1 {
   grid-area: imageLeft;
 }
 .imageCardCont2 {
@@ -379,14 +405,8 @@ header {
 }
 .imageCardCont3 {
   grid-area: imageRight;
-}
+} */
 
-.imagecard-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.5rem;
-}
 .imagecard-bottom-left {
   display: flex;
   align-items: center;
@@ -407,7 +427,7 @@ header {
 .moreimages-btn {
   width: 100%;
   font-size: 22px;
-  grid-area: btn;
+  /* grid-area: btn; */
   padding: 1.2rem 0;
   display: flex;
   align-items: center;
@@ -420,6 +440,9 @@ header {
 }
 
 @media only screen and (max-width: 768px) {
+  .categoryimagescontainer {
+    gap: 1rem;
+  }
   .categoriesh2 {
     font-size: 2.4rem;
   }
@@ -431,6 +454,9 @@ header {
   .categoryimagescontainer {
     display: flex;
     flex-direction: column;
+  }
+  .imagecardcontainer {
+    width: 100%;
   }
   .categoriesh2 {
     font-size: 1.7rem;
@@ -445,7 +471,7 @@ header {
     padding: 0.6rem;
   }
   .imagecard-bottom {
-    padding: 0.5rem;
+    padding: 1.5rem;
   }
 }
 

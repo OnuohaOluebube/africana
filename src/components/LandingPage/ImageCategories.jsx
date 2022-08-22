@@ -32,15 +32,7 @@ const ImageCategories = () => {
     );
   });
 
-  categorizedImgUI.splice(
-    2,
-    0,
-    <div className="moreimages">
-      <Link to="/Feeds">
-        <Button className="moreimages-btn" name="View more images" />
-      </Link>
-    </div>
-  );
+  categorizedImgUI.splice(2, 0);
 
   return (
     <section className="imagescategories">
@@ -69,6 +61,11 @@ const ImageCategories = () => {
           </Link>
         </div>
         <div className="categoryimagescontainer">{categorizedImgUI}</div>
+        <div className="moreimages">
+          <Link to="/Feeds">
+            <Button className="moreimages-btn" name="View more images" />
+          </Link>
+        </div>
       </div>
     </section>
   );
