@@ -8,11 +8,11 @@ import ImageCard from "../Common/ImageCard";
 const ImageDetails = () => {
   let ImageId = new URLSearchParams(useLocation().search).get("ImageId");
 
-  const imgContext = useContext(ImagesContext);
+  const context = useContext(ImagesContext);
 
-  const selectedImage = imgContext.images?.find((img) => img._id === ImageId);
+  const selectedImage = context.images?.find((img) => img._id === ImageId);
 
-  const sameCategory = imgContext.images?.filter(
+  const sameCategory = context.images?.filter(
     (img) =>
       img.category._id === selectedImage?.category._id &&
       img._id !== selectedImage?._id

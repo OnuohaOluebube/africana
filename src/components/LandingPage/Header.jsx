@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Button from "../Common/button";
 import { FaSearch } from "react-icons/fa";
 import ImagesContext from "../Common/stateProvider";
-import ImageCard from "../Common/ImageCard";
 
 const Header = () => {
   const ImgContext = useContext(ImagesContext);

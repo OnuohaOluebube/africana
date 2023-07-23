@@ -41,9 +41,27 @@ const endPoints = {
     const response = await Axios.get(BASE_URL + "api/images");
     return response.data;
   },
+  getSignedinUser: async () => {
+    const headers = {
+      "x-auth-token": localStorage.getItem("africanaToken"),
+    };
+    const response = await Axios.get(BASE_URL + "api/users/me", {
+      headers,
+    });
+    return response.data;
+  },
 
   uploadImgs: async (data) => {
     const response = await Axios.post(BASE_URL + "uploadimages");
+    return response.data;
+  },
+  likeImage: async (data) => {
+    const headers = {
+      "x-auth-token": localStorage.getItem("africanaToken"),
+    };
+    const response = await Axios.post(BASE_URL + "api/likes", data, {
+      headers,
+    });
     return response.data;
   },
 };

@@ -2,6 +2,8 @@ import React, { Component, useContext } from "react";
 import { BsFillArrowDownSquareFill } from "react-icons/bs";
 import { Link, useHistory } from "react-router-dom";
 import ImagesContext from "./stateProvider";
+import { BiLike } from "react-icons/bi";
+import endPoints from "../services/EndPoints";
 
 const ImageCard = ({ image, extraClassName }) => {
   let history = useHistory();
@@ -18,7 +20,12 @@ const ImageCard = ({ image, extraClassName }) => {
   const lastname = image?.user?.lastname || "";
   const fulname = titleCase(firstname + " " + lastname);
 
-  const ImgContext = useContext(ImagesContext);
+  const context = useContext(ImagesContext);
+
+  const handleLike = async (imgId) => {
+    const res = await endPoints.likeImage({ imageId: imgId });
+    console.log(res);
+  };
 
   return (
     <div className={"imagecardcontainer " + extraClassName}>
@@ -29,7 +36,7 @@ const ImageCard = ({ image, extraClassName }) => {
             alt={image.name}
             onClick={() => {
               history.push(`?ImageId=${image?._id}`);
-              ImgContext.setShowModal(true);
+              context.setShowModal(true);
               const imageDetail = document.getElementById("imageDetails");
               imageDetail &&
                 imageDetail.scrollIntoView({
@@ -43,13 +50,19 @@ const ImageCard = ({ image, extraClassName }) => {
           <div className="imagecard-bottom-left">
             <p className="rounded-profileImg ">{fulname[0].toUpperCase()}</p>
             <p>
-              <p className="img-card-name">{image.name}</p>
               <p className="img-card-user">{fulname}</p>
             </p>
           </div>
           <a href={image.s3Url} download>
             <BsFillArrowDownSquareFill className="download-icon" />
           </a>
+          <p>
+            <BiLike
+              onClick={() => {
+                handleLike(image?._id);
+              }}
+            />
+          </p>
         </div>
       </div>
     </div>

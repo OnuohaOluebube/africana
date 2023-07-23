@@ -1,33 +1,32 @@
-import React, { Component, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ImagesContext from "../Common/stateProvider";
 import ImageCard from "../Common/ImageCard";
-import Button from "../Common/button";
 
 const ImageCategories = () => {
-  const imgContext = useContext(ImagesContext);
+  const context = useContext(ImagesContext);
   const [categorizedImages, setCategorizedImages] = useState([]);
 
   useEffect(() => {
-    console.log({ "categorized images": imgContext.images });
-    const categorizedImages = imgContext.selectedImageCategory
-      ? imgContext.images
+    console.log({ "categorized images": context.images });
+    const categorizedImages = context.selectedImageCategory
+      ? context.images
           .filter(
-            (image) => image.category._id === imgContext.selectedImageCategory
+            (image) => image.category._id === context.selectedImageCategory
           )
           .slice(0, 3)
-      : imgContext.images.slice(0, 3);
+      : context.images.slice(0, 3);
     setCategorizedImages([...categorizedImages]);
-  }, [imgContext.images, imgContext.selectedImageCategory]);
+  }, [context.images, context.selectedImageCategory]);
 
   const categorizedImgUI = categorizedImages.map((image) => {
     return (
       <ImageCard
-        handleImageSelect={imgContext.handleImageSelect}
+        handleImageSelect={context.handleImageSelect}
         extraClassName={`imageCardCont${image._id}`}
         key={image._id}
         image={image}
-        handleShowModal={imgContext.handleShowModal}
+        handleShowModal={context.handleShowModal}
       />
     );
   });
@@ -41,14 +40,14 @@ const ImageCategories = () => {
           Explore Thousands of Categories of image
         </h2>
         <div className="categories">
-          {imgContext.imagesCategories?.map((category) => (
+          {context.imagesCategories?.map((category) => (
             <button
-              key={category.id}
+              key={category._id}
               onClick={() => {
-                imgContext.handleSelectedImageCategory(category._id);
+                context.handleSelectedImageCategory(category._id);
               }}
               className={` ${
-                imgContext.selectedImageCategory === category._id
+                context.selectedImageCategory === category._id
                   ? "category-btn active"
                   : "category-btn"
               }`}
@@ -63,7 +62,7 @@ const ImageCategories = () => {
         <div className="categoryimagescontainer">{categorizedImgUI}</div>
         <div className="moreimages">
           <Link to="/Feeds">
-            <Button className="moreimages-btn" name="View more images" />
+            <p>View All Images</p>
           </Link>
         </div>
       </div>

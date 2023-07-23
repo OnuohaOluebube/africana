@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Button from "./button";
-import { FaSearch } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
+
 import ImagesContext from "./stateProvider";
 
 const NavBar = ({}) => {
@@ -11,7 +13,10 @@ const NavBar = ({}) => {
   let roundedProfileRef = useRef();
 
   const [navActive, setNavActive] = useState(false);
-  const imgContext = useContext(ImagesContext);
+  const [showModal, setShowModal] = useState(false);
+  const [showNavMenu, setShowNavMenu] = useState(false);
+
+  const context = useContext(ImagesContext);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -19,15 +24,21 @@ const NavBar = ({}) => {
   }, []);
 
   const handleScroll = () => {
-    setNavActive(window.pageYOffset > 82);
+    setNavActive(window.pageYOffset > 5);
   };
 
   const handleSignOut = () => {
     localStorage.removeItem("africanaToken");
-    localStorage.removeItem("africanaUsername");
-    imgContext.setLoggedIn(false);
-    imgContext.setUsername("");
+    context.setLoggedIn(false);
+    context.setUser("");
   };
+  // const handleSearch = (e) =>{
+  //   if(e.keyPress === "Enter"){
+
+  //   }
+  // }
+
+  const history = useHistory();
 
   return (
     <nav className={`navigation ${navActive && "navigation-active"}`}>
@@ -39,67 +50,97 @@ const NavBar = ({}) => {
         </Link>
       </div>
 
-      <div className="nav-right">
-        {imgContext.loggedIn && (
-          <div className="hero-input-container signedIn">
-            <FaSearch
-              onClick={() => {
-                searchRef.current.classList.add("signedIn-inputactive");
-                searchRef.current.focus();
-                logoRef.current.classList.add("hide");
-                uploadBtnRef.current.classList.add("hide");
-              }}
-            />
-            <input
-              ref={searchRef}
-              onBlur={() => {
-                searchRef.current.classList.remove("signedIn-inputactive");
-                logoRef.current.classList.remove("hide");
-                uploadBtnRef.current.classList.remove("hide");
-              }}
-              className="nav-input"
-              type="text"
-              value={imgContext.searchQuery}
-              placeholder="Search for Image by Keyword"
-              onChange={(e) => imgContext.setSearchQuery(e.target.value)}
-            />
-            <div className="upl-and-profile" ref={uploadBtnRef}>
-              <Link to="/UploadImg">
+      <div className="nav-center">
+        {/* <div className="hero-input-container signedIn"> */}
+        {/* <FaSearch
+          className="search-icon"
+          onClick={() => {
+            searchRef.current.focus();
+            logoRef.current.classList.add("hide");
+            uploadBtnRef.current.classList.add("hide");
+          }}
+          /> */}
+        <input
+          ref={searchRef}
+          onBlur={() => {
+            searchRef.current.classList.remove("signedIn-inputactive");
+            logoRef.current.classList.remove("hide");
+            uploadBtnRef.current.classList.remove("hide");
+            searchRef.current.classList.add("signedIn-inputactive");
+          }}
+          className="nav-input"
+          type="text"
+          value={context.searchQuery}
+          placeholder="Search for Image by Keyword"
+          onChange={(e) => context.setSearchQuery(e.target.value)}
+        />
+      </div>
+
+      <div className="nav-hamburger">
+        <GiHamburgerMenu
+          onClick={() => {
+            setShowNavMenu(true);
+          }}
+        />
+      </div>
+      {showNavMenu && (
+        <div className="mobile-navmenu">
+          <ul>
+            <li>
+              {" "}
+              <Link to={context.loggedIn ? "/UploadImg" : "/Login"}>
                 <Button name="Upload" className="nav-button" />
               </Link>
+            </li>
+          </ul>
+        </div>
+      )}
 
-              <p className="nav-rounded-profileImg">{imgContext.username[0]}</p>
-            </div>
-            <p
-              onClick={handleSignOut}
-              style={{
-                fontSize: "15px",
-                margin: "10px",
-                color: "red",
+      <div className="nav-right">
+        <div className="upl-and-profile" ref={uploadBtnRef}>
+          <Link to={context.loggedIn ? "/UploadImg" : "/Login"}>
+            <Button name="Upload" className="nav-button" />
+          </Link>
+        </div>
+        <div className="nav-signup">
+          {context.loggedIn ? (
+            <FaUserCircle
+              onClick={(e) => {
+                setShowModal(true);
+                // history.push(`@${context?.user?.email}`);
               }}
-            >
-              {" "}
-              Sign Out
-            </p>
-          </div>
-        )}
+              className="loggedin-user"
+            />
+          ) : (
+            <div className="nav-sign-up">
+              <Link to="/Registration">
+                <span> Siginup /</span>
+              </Link>
+              <Link to="/Login">
+                <span>Login</span>
+              </Link>
+            </div>
+          )}
+        </div>
 
-        {!imgContext.loggedIn && (
-          <div className="nav-sign-up">
-            <Link to="/Registration">
-              <Button name="Sign Up" />
-            </Link>
-            <Link to="/Login">
-              <p
-                style={{
-                  color: `${navActive ? "black" : "white"}`,
-                }}
-              >
-                Login
-              </p>
-            </Link>
-          </div>
-        )}
+        <div
+          style={{ position: "absolute", top: 50 }}
+          className="loggedin-modal"
+          onClick={(e) => {
+            setShowModal(false);
+          }}
+        >
+          {showModal && (
+            <ul>
+              <li>
+                {" "}
+                <Link to="/Profile">View profile </Link>
+              </li>
+              <li>Account Setting</li>
+              <li onClick={handleSignOut}>log out</li>
+            </ul>
+          )}
+        </div>
       </div>
     </nav>
   );

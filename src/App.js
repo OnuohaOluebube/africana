@@ -8,10 +8,11 @@ import {
 } from "react-router-dom";
 import Index from "./components/LandingPage/Index";
 import ImagesContext from "./components/Common/stateProvider";
-// import { getCategories } from "./components/utils/getCategories";
-import { getImages } from "./components/utils/getImages";
+
 import Feeds from "./components/Feeds/Feeds";
 import ImageDetails from "./components/ImageDetails/Images";
+import Profile from "./components/Profile/Profile";
+import Account from "./components/Account/Account";
 import ModalPopup from "./components/Modal/Modal";
 import ScrollToTop from "./components/Common/useScrollToTop";
 import UploadImg from "./components/UploadImg/UploadImg";
@@ -31,20 +32,30 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [queriedImg, setQueriedImg] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [username, setUsername] = useState(false);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const token = localStorage.getItem("africanaToken");
-    const username = localStorage.getItem("africanaUsername");
-    console.log("token", token);
+
     if (!token) return;
     setLoggedIn(true);
-    setUsername(username);
+
   }, []);
+  useEffect(async() => {
+  
+const user = await endPoints.getSignedinUser();
+setUser(user)
+
+
+}, [loggedIn]);
+
+
+
+
 
   const getCategories = async () => {
     const cats = await endPoints.getCategories();
-    console.log(cats);
+  
     return cats;
   };
 
@@ -60,7 +71,6 @@ function App() {
 
   useEffect(fetchImages, []);
 
-  console.log("my images are", images);
 
   useEffect(() => {
     const QueriedImg = images?.filter((img) =>
@@ -96,8 +106,8 @@ function App() {
             setSearchQuery,
             setLoggedIn,
             loggedIn,
-            username,
-            setUsername,
+            user,
+            setUser,
 
             handleCloseUploadModal,
           }}
@@ -127,6 +137,13 @@ function App() {
             <Route path="/Feeds">
               <Feeds />
             </Route>
+            <Route path="/Profile">
+              <Profile />
+            </Route>
+            <Route path="/Account">
+              <Account />
+            </Route>
+            
 
             <Route exact path="/">
               <Index />

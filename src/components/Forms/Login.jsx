@@ -47,18 +47,16 @@ const LoginForm = () => {
     setLoading(true);
     e.preventDefault();
     const error = validate();
-    console.log(error);
+
     if (error) return;
     try {
       const res = await endPoints.login(data);
-      console.log(res);
+
       localStorage.setItem("africanaToken", res.token);
-      localStorage.setItem("africanaUsername", res.firstname);
       context.setLoggedIn(true);
-      context.setUsername(res.firstname);
+
       history.push("/");
     } catch (e) {
-      console.log(e.response);
       alert(e?.response?.data?.error || "something went wrong");
     }
     setLoading(false);
@@ -98,8 +96,7 @@ const LoginForm = () => {
             <label className="label" htmlFor="email">
               Email Address
             </label>
-            {/* <div className="relative"> */}
-            {/* <img className="absolute right-0" src="mail-fill.svg" /> */}
+
             <input
               className="input"
               type="email"
